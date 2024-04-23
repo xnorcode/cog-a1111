@@ -73,7 +73,7 @@ class Predictor(BasePredictor):
         ),
         hr_upscaler: str = Input(
             description="Upscaler for Hires. fix",
-            choices=['Latent', 'Latent (antialiased)', 'Latent (bicubic)', 'Latent (bicubic antialiased)', 'Latent (nearest)', 'Latent (nearest-exact)', 'None', 'Lanczos', 'Nearest', 'ESRGAN_4x', 'LDSR', 'R-ESRGAN 4x+', 'R-ESRGAN 4x+ Anime6B', 'ScuNET GAN', 'ScuNET PSNR', 'SwinIR 4x'],
+            choices=['Latent', 'Latent (antialiased)', 'Latent (bicubic)', 'Latent (bicubic antialiased)', 'Latent (nearest)', 'Latent (nearest-exact)', 'None', 'Lanczos', 'Nearest', 'ESRGAN_4x', 'LDSR', 'R-ESRGAN 4x+', 'R-ESRGAN 4x+ Anime6B', 'ScuNET GAN', 'ScuNET PSNR', 'SwinIR 4x', '4x-UltraSharp', '4x_NMKD-Siax_200k'],
             default="Latent",
         ),
         hr_steps: int = Input(
