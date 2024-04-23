@@ -30,7 +30,9 @@ build:
   run:
     - git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /stable-diffusion-webui
     - wget -O juggernautXL_v9Rdphoto2Lightning.safetensors -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
-    - git clone https://github.com/Bing-su/adetailer /stable-diffusion-webui/extensions
+    - cd /stable-diffusion-webui/extensions
+    - git clone https://github.com/Bing-su/adetailer
+    - cd ../../
     - wget -O 4x-UltraSharp.pth -P /stable-diffusion-webui/models/ESRGAN "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
     - wget -O 4x_NMKD-Siax_200k.pth -P /stable-diffusion-webui/models/ESRGAN "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
     - git clone https://github.com/xnorcode/cog-a1111 /cog-sd-webui
