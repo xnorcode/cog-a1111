@@ -1,10 +1,10 @@
+import os, sys, json
+sys.path.extend(['/stable-diffusion-webui'])
+
 from modules import timer
 from modules import initialize_util
 from modules import initialize
 from fastapi import FastAPI
-
-import os, sys, json
-sys.path.extend(['/stable-diffusion-webui'])
 
 from cog import BasePredictor, BaseModel, Input, Path
 
