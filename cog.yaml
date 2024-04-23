@@ -18,9 +18,9 @@ build:
 
   # a list of packages in the format <package-name>==<version>
   python_packages:
-    - "torch==2.0.1"
-    - "torchvision==0.15.2"
-    - "xformers==0.0.22"
+    - "torch==2.1.2"
+    - "torchvision==0.17.2"
+    - "xformers==0.0.25"
     - "transformers==4.40.0"
     - "safetensors==0.4.3"
     - "bitsandbytes==0.43.1"
@@ -29,12 +29,17 @@ build:
   # commands run after the environment is setup
   run:
     - git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /stable-diffusion-webui
-    - wget -O juggernautXL_v9Rdphoto2Lightning.safetensors -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
+    - cd /stable-diffusion-webui/models/Stable-diffusion
+    - wget -q -O juggernautXL_v9Rdphoto2Lightning.safetensors "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
+    - cd ../../../
     - cd /stable-diffusion-webui/extensions
     - git clone https://github.com/Bing-su/adetailer
     - cd ../../
-    - wget -O 4x-UltraSharp.pth -P /stable-diffusion-webui/models/ESRGAN "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
-    - wget -O 4x_NMKD-Siax_200k.pth -P /stable-diffusion-webui/models/ESRGAN "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
+    - mkdir /stable-diffusion-webui/models/ESRGAN
+    - cd /stable-diffusion-webui/models/ESRGAN
+    - wget -O 4x-UltraSharp.pth "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
+    - wget -O 4x_NMKD-Siax_200k.pth "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
+    - cd ../../../
     - git clone https://github.com/xnorcode/cog-a1111 /cog-sd-webui
     - python /cog-sd-webui/init_env.py --skip-torch-cuda-test
 

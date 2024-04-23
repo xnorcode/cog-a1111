@@ -1,4 +1,5 @@
 import os, sys, json
+import time
 sys.path.extend(['/stable-diffusion-webui'])
 
 from modules import timer
@@ -90,7 +91,6 @@ class Predictor(BasePredictor):
         ),
     ) -> list[Path]:
         """Run a single prediction on the model"""
-        print("Running prediction")
         start_time = time.time()
 
         payload = {
