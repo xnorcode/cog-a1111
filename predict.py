@@ -1,5 +1,7 @@
-# Prediction interface for Cog ⚙️
-# https://github.com/replicate/cog/blob/main/docs/python.md
+from modules import timer
+from modules import initialize_util
+from modules import initialize
+from fastapi import FastAPI
 
 import os, sys, json
 sys.path.extend(['/stable-diffusion-webui'])
@@ -12,26 +14,14 @@ class Predictor(BasePredictor):
 
         # workaround for replicate since its entrypoint may contain invalid args
         os.environ['IGNORE_CMD_ARGS_ERRORS'] = '1'
-        from modules import timer
-        # moved env preparation to build time
-        # from modules import launch_utils
-
-        # with launch_utils.startup_timer.subcategory("prepare environment"):
-        #     launch_utils.prepare_environment()
-
-        from modules import initialize_util
-        from modules import initialize
 
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
 
         initialize.imports()
-
         initialize.check_versions()
-
         initialize.initialize()
 
-        from fastapi import FastAPI
         app = FastAPI()
         initialize_util.setup_middleware(app)
 
@@ -40,19 +30,18 @@ class Predictor(BasePredictor):
         
         self.api = Api(app, queue_lock)
 
+        model_response = self.api.get_sd_models()
+        print("Available checkpoints: ", str(model_response))
+
+        from modules import script_callbacks
+        script_callbacks.before_ui_callback()
+        script_callbacks.app_started_callback(None, app)
+
         from modules.api.models import StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI
         self.StableDiffusionTxt2ImgProcessingAPI = StableDiffusionTxt2ImgProcessingAPI
         self.StableDiffusionImg2ImgProcessingAPI = StableDiffusionImg2ImgProcessingAPI
 
-        payload = {
-            "override_settings": {
-                "sd_model_checkpoint": "juggernautXL_v9Rdphoto2Lightning.safetensors"
-            }
-        }
-        req = StableDiffusionTxt2ImgProcessingAPI(**payload)
-        self.api.text2imgapi(req)
-        req = StableDiffusionImg2ImgProcessingAPI(**payload)
-        self.api.img2imgapi(req)
+        print(f"Startup time: {startup_timer.summary()}.")
 
     def predict(
         self,
@@ -101,11 +90,13 @@ class Predictor(BasePredictor):
         ),
     ) -> list[Path]:
         """Run a single prediction on the model"""
-        # processed_input = preprocess(image)
-        # output = self.model(processed_image, scale)
-        # return postprocess(output)
+        print("Running prediction")
+        start_time = time.time()
+
         payload = {
-            # "init_images": [encoded_image],
+            "override_settings": {
+                "sd_model_checkpoint": "juggernautXL_v9Rdphoto2Lightning.safetensors"
+            },
             "prompt": prompt,
             "negative_prompt": negative_prompt,
             "width": width,
@@ -144,5 +135,6 @@ class Predictor(BasePredictor):
             gen_data.save(fp=filename, format="PNG")
             output = Path(filename)
             outputs.append(output)
-
+        
+        print(f"Prediction took {round(time.time() - start_time,2)} seconds")
         return outputs
