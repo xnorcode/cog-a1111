@@ -40,15 +40,29 @@ class Predictor(BasePredictor):
         
         self.api = Api(app, queue_lock)
 
+        from modules.api.models import StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI
+        self.StableDiffusionTxt2ImgProcessingAPI = StableDiffusionTxt2ImgProcessingAPI
+        self.StableDiffusionImg2ImgProcessingAPI = StableDiffusionImg2ImgProcessingAPI
+
+        payload = {
+            "override_settings": {
+                "sd_model_checkpoint": "juggernautXL_v9Rdphoto2Lightning.safetensors"
+            }
+        }
+        req = StableDiffusionTxt2ImgProcessingAPI(**payload)
+        self.api.text2imgapi(req)
+        req = StableDiffusionImg2ImgProcessingAPI(**payload)
+        self.api.img2imgapi(req)
+
     def predict(
         self,
         prompt: str = Input(description="Prompt"),
         negative_prompt: str = Input(description="Negative Prompt", default=""),
         width: int = Input(
-            description="Width of output image", ge=1, le=1024, default=512
+            description="Width of output image", ge=1, le=1792, default=512
         ),
         height: int = Input(
-            description="Height of output image", ge=1, le=1024, default=512
+            description="Height of output image", ge=1, le=1792, default=512
         ),
         num_outputs: int = Input(
             description="Number of images to output", ge=1, le=4, default=1
@@ -109,8 +123,8 @@ class Predictor(BasePredictor):
             "hr_scale": hr_scale,
         }
 
-        from modules.api.models import StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI
-        req = StableDiffusionTxt2ImgProcessingAPI(**payload)
+        
+        req = self.StableDiffusionTxt2ImgProcessingAPI(**payload)
         # generate
         resp = self.api.text2imgapi(req)
         info = json.loads(resp.info)
