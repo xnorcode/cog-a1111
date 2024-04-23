@@ -59,10 +59,10 @@ class Predictor(BasePredictor):
         prompt: str = Input(description="Prompt"),
         negative_prompt: str = Input(description="Negative Prompt", default=""),
         width: int = Input(
-            description="Width of output image", ge=1, le=1792, default=512
+            description="Width of output image", ge=512, le=1792, default=1024
         ),
         height: int = Input(
-            description="Height of output image", ge=1, le=1792, default=512
+            description="Height of output image", ge=512, le=1792, default=1024
         ),
         num_outputs: int = Input(
             description="Number of images to output", ge=1, le=4, default=1
