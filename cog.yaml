@@ -17,13 +17,14 @@ build:
   # python_requirements: requirements.txt
 
   # a list of packages in the format <package-name>==<version>
+  # xformers==0.0.25.post1
   python_packages:
-    - "torch==2.1.2"
+    - "torch==2.2.2"
     - "torchvision==0.17.2"
     - "xformers==0.0.25"
     - "transformers==4.40.0"
-    - "safetensors==0.4.3"
-    - "bitsandbytes==0.43.1"
+    - "safetensors==0.4.2"
+    - "bitsandbytes==0.43.0"
     - "invisible-watermark==0.2.0"
 
   # commands run after the environment is setup
