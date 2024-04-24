@@ -17,11 +17,10 @@ build:
   # python_requirements: requirements.txt
 
   # a list of packages in the format <package-name>==<version>
-  # xformers==0.0.25.post1
   python_packages:
     - "torch==2.2.2"
     - "torchvision==0.17.2"
-    - "xformers==0.0.25"
+    - "xformers==0.0.25.post1"
     - "transformers==4.40.0"
     - "safetensors==0.4.2"
     - "bitsandbytes==0.43.0"
