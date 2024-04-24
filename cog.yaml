@@ -42,6 +42,7 @@ build:
     - wget -O 4x_NMKD-Siax_200k.pth "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
     - cd ../../../
     - git clone https://github.com/xnorcode/cog-a1111 /cog-sd-webui
+    - mv cog-sd-webui/init.jpg stable-diffusion-webui/init.jpg
     - python /cog-sd-webui/init_env.py --skip-torch-cuda-test
 
 image: "r8.im/xnorcode/sdwebui"
