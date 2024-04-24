@@ -27,9 +27,10 @@ build:
     - "invisible-watermark==0.2.0"
 
   # commands run after the environment is setup
+  # - wget -q -O juggernautXL_v9Rdphoto2Lightning.safetensors -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
   run:
     - git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /stable-diffusion-webui
-    - wget -q -O juggernautXL_v9Rdphoto2Lightning.safetensors -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
+    - wget --content-disposition -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
     - cd /stable-diffusion-webui/extensions
     - git clone https://github.com/Bing-su/adetailer
     - cd ../../

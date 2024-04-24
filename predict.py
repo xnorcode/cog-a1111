@@ -33,7 +33,7 @@ class Predictor(BasePredictor):
         self.api = Api(app, queue_lock)
 
         model_response = self.api.get_sd_models()
-        print("Available checkpoints: ", str(model_response))
+        print(f"Available checkpoints: ", str(model_response))
 
         from modules import script_callbacks
         script_callbacks.before_ui_callback()
