@@ -27,18 +27,18 @@ build:
     - "invisible-watermark==0.2.0"
 
   # commands run after the environment is setup
-  # - wget -q -O juggernautXL_v9Rdphoto2Lightning.safetensors -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
   run:
     - git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /stable-diffusion-webui
     - wget --content-disposition -P /stable-diffusion-webui/models/Stable-diffusion "https://civitai.com/api/download/models/357609?type=Model&format=SafeTensor&size=full&fp=fp16"
-    - cd /stable-diffusion-webui/extensions
-    - git clone https://github.com/Bing-su/adetailer
-    - cd ../../
-    - wget -O 4x-UltraSharp.pth -P /stable-diffusion-webui/models/ESRGAN "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
-    - wget -O 4x_NMKD-Siax_200k.pth -P /stable-diffusion-webui/models/ESRGAN "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
+    - rm -r /stable-diffusion-webui/extensions
+    - git clone https://github.com/Bing-su/adetailer /stable-diffusion-webui/extensions/adetailer
+    - mkdir /stable-diffusion-webui/models/ESRGAN
+    - wget --content-disposition -P /stable-diffusion-webui/models/ESRGAN "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
+    - mv /stable-diffusion-webui/models/ESRGAN/4xUltrasharp_4xUltrasharpV10.pt /stable-diffusion-webui/models/ESRGAN/4x-UltraSharp.pth
+    - wget --content-disposition -P /stable-diffusion-webui/models/ESRGAN "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
     - git clone https://github.com/xnorcode/cog-a1111 /cog-sd-webui
     - python /cog-sd-webui/init_env.py --skip-torch-cuda-test
 
-# image: "r8.im/xnorcode/sdwebui"
+image: "r8.im/xnorcode/sdwebui"
 
 predict: "predict.py:Predictor"
