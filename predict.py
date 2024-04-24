@@ -44,7 +44,7 @@ class Predictor(BasePredictor):
         self.StableDiffusionTxt2ImgProcessingAPI = StableDiffusionTxt2ImgProcessingAPI
         self.StableDiffusionImg2ImgProcessingAPI = StableDiffusionImg2ImgProcessingAPI
 
-        file_path = Path("init.jpg")
+        file_path = Path("/stable-diffusion-webui/init.jpg")
         base64_encoded_data = base64.b64encode(file_path.read_bytes())
         base64_image = base64_encoded_data.decode('utf-8')
 
