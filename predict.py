@@ -59,63 +59,7 @@ class Predictor(BasePredictor):
             "steps": 1,
             "init_images": [base64_image],
             "denoising_strength": 0.1,
-            "do_not_save_samples": True,
-            "alwayson_scripts": {
-                "Tiled Diffusion": {
-                    "args": [
-                        True,
-                        "MultiDiffusion",
-                        True,
-                        True,
-                        1,
-                        1,
-                        112,
-                        144,
-                        4,
-                        8,
-                        "4x-UltraSharp",
-                        1.1, 
-                        False, 
-                        0,
-                        0.0, 
-                        3,
-                    ]
-                },
-                "Tiled VAE": {
-                    "args": [
-                        True,
-                        3072,
-                        192,
-                        True,
-                        True,
-                        True,
-                        True,
-                    ]
-
-                },
-                "controlnet": {
-                    "args": [
-                        {
-                            "enabled": True,
-                            "module": "tile_resample",
-                            "model": "control_v11f1e_sd15_tile",
-                            "weight": 0.2,
-                            "image": base64_image,
-                            "resize_mode": 1,
-                            "lowvram": False,
-                            "downsample": 1.0,
-                            "guidance_start": 0.0,
-                            "guidance_end": 1.0,
-                            "control_mode": 1,
-                            "pixel_perfect": True,
-                            "threshold_a": 1,
-                            "threshold_b": 1,
-                            "save_detected_map": False,
-                            "processor_res": 512,
-                        }
-                    ]
-                }
-            }
+            "do_not_save_samples": True
         }
 
         req = StableDiffusionImg2ImgProcessingAPI(**payload)
