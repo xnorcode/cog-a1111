@@ -36,9 +36,8 @@ build:
     - wget -O 4x-UltraSharp.pth -P /stable-diffusion-webui/models/ESRGAN "https://civitai.com/api/download/models/125843?type=Model&format=PickleTensor"
     - wget -O 4x_NMKD-Siax_200k.pth -P /stable-diffusion-webui/models/ESRGAN "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
     - git clone https://github.com/xnorcode/cog-a1111 /cog-sd-webui
-    - mv cog-sd-webui/init.jpg stable-diffusion-webui/init.jpg
     - python /cog-sd-webui/init_env.py --skip-torch-cuda-test
 
-image: "r8.im/xnorcode/sdwebui"
-# predict.py defines how predictions are run on your model
+# image: "r8.im/xnorcode/sdwebui"
+
 predict: "predict.py:Predictor"

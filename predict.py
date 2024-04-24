@@ -1,6 +1,5 @@
 import os, sys, json
 import time
-import base64
 
 sys.path.extend(['/stable-diffusion-webui'])
 
@@ -43,27 +42,6 @@ class Predictor(BasePredictor):
         from modules.api.models import StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI
         self.StableDiffusionTxt2ImgProcessingAPI = StableDiffusionTxt2ImgProcessingAPI
         self.StableDiffusionImg2ImgProcessingAPI = StableDiffusionImg2ImgProcessingAPI
-
-        file_path = Path("/stable-diffusion-webui/init.jpg")
-        base64_encoded_data = base64.b64encode(file_path.read_bytes())
-        base64_image = base64_encoded_data.decode('utf-8')
-
-        payload = {
-           "override_settings": {
-                "sd_model_checkpoint": "juggernautXL_v9Rdphoto2Lightning.safetensors",
-                "sd_vae": "vae-ft-mse-840000-ema-pruned.safetensors",
-                 "CLIP_stop_at_last_layers": 1,
-            },
-            "override_settings_restore_afterwards": False,
-            "prompt": "office building",
-            "steps": 1,
-            "init_images": [base64_image],
-            "denoising_strength": 0.1,
-            "do_not_save_samples": True
-        }
-
-        req = StableDiffusionImg2ImgProcessingAPI(**payload)
-        self.api.img2imgapi(req)
 
         print(f"Startup time: {startup_timer.summary()}.")
 
